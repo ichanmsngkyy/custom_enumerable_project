@@ -8,4 +8,68 @@ end
 # to this method
 class Array
   # Define my_each here
+  def my_each
+    self.each do |elem|
+      yield(elem)
+    end
+  end
+
+  def my_each_with_index
+    self.each_with_index do |elem, index|
+      yield(elem, index)
+    end
+  end
+
+  def my_select
+    arr = []
+    self.each do |elem|
+      arr.push(elem) if yield(elem)
+    end
+    arr
+  end
+
+  def my_all?
+   self.each do |elem|
+    return false unless yield(elem)
+    end
+    true
+  end
+
+  def my_any?
+    self.each do |elem|
+      return true if yield(elem)
+    end
+    false
+  end
+
+  def my_none?
+    self.each do |elem|
+      return false if yield(elem)
+    end
+    true
+  end
+
+  def my_count
+    return self.size unless block_given?
+    arr = []
+    self.each do |elem|
+      arr.push(elem) if yield(elem)
+    end
+    arr.size
+  end
+
+  def my_map
+    arr = []
+    self.each do |elem|
+      arr.push(yield(elem))
+    end
+    arr
+  end
+
+  def my_inject
+    self.each do |elem|
+      intial_value = yield(initial_value,elem)
+    end
+    initial_value
+  end
 end
